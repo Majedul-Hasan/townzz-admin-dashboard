@@ -3,6 +3,7 @@ export interface UserInterFace {
     name: string
     email: string
     role: string
+    status : string
 }
 
 export interface ConcertInterface {

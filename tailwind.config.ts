@@ -1,6 +1,6 @@
+import type { Config } from 'tailwindcss';
 
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+const config: Config = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -12,15 +12,16 @@ module.exports = {
   theme: {
     extend: {
       container: {
-        "2xl": "1440px"
+        center: true, // Optional: Center the container
+        padding: '2rem', // Optional: Add padding
       },
-      color: {
-        "primary": "#83008A",
-        "secondary": "#B80069",
-
-      }
+      colors: {
+        primary: "#83008A",
+        secondary: "#B80069",
+      },
     },
   },
   plugins: [],
-}
+};
 
+export default config;

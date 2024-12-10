@@ -12,6 +12,8 @@ import payment from "@/assests/user.png"
 import dashboard from "@/assests/dashboard.png"
 import logOut from '@/assests/logout.png'
 import subscription from "@/assests/subscribe.png" 
+import logo from "@/assests/logo.png" 
+
 
 interface SidebarProps {
   isOpen: boolean;
@@ -69,7 +71,7 @@ const NavbarSlider = ({ isOpen, toggleSidebar }: SidebarProps) => {
         {/* Logo */}
         {isOpen && (
           <Link href="/" className="flex justify-center mb-6 pt-[20px] pb-[15px]">
-            <Image width={120} height={120} className="max-w-32" src="/images/raaya_logo.png" alt="logo_image" />
+            <Image width={120} height={120} className="max-w-32" src={logo} alt="logo_image" />
           </Link>
         )}
 
