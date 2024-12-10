@@ -32,7 +32,7 @@ const UserTable = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
 
     const users = userTable && userTable.filter((item)=> item.role == "resident")
-    console.log(users);
+
     
 
 
@@ -45,7 +45,7 @@ const UserTable = () => {
         currentPage * itemsPerPage
     );
 
-    console.log(currentPageData);
+
     
 
     // // Handle page change

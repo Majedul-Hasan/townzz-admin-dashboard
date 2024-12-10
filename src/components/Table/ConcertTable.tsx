@@ -272,7 +272,7 @@ const ConcertTable = () => {
     // const today = "2024-12-08"
 
     const users = concertTable && concertTable.filter((item)=> item.date >= today)
-    console.log(users);
+   
     
 
 
@@ -285,7 +285,7 @@ const ConcertTable = () => {
         currentPage * itemsPerPage
     );
 
-    console.log(currentPageData);
+
     
 
     // // Handle page change
@@ -312,7 +312,7 @@ const ConcertTable = () => {
                 </thead>
                 <tbody>
                     {currentPageData?.map((item : ConcertInterface, index : number) => (
-                        <motion.tr initial={{y : -100*(index+1), opacity: 0}} animate={{y:0, opacity:1, transition: {duration : 0.2*(index+1)}}}  key={index} className="border-b text-center">
+                        <motion.tr initial={{y : -100*(index+1), opacity: 0}}  animate={{y:0, opacity:1, transition: {duration : 0.2*(index+1)}}}  key={index} className="border-b text-center">
                             <td className="px-4 py-2">{(currentPage - 1) * itemsPerPage + index + 1}</td>
                             <td className="px-4 py-2">{item.image}</td>
                             <td className="px-4 py-2">{item.title}</td>

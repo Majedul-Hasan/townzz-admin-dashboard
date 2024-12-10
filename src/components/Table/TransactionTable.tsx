@@ -135,7 +135,7 @@ const TransactionTable = () => {
     // const today = "2024-12-08"
 
     // const users = payment && payment.filter((item)=> item.date >= today)
-    // console.log(users);
+
     
 
 
@@ -148,7 +148,7 @@ const TransactionTable = () => {
         currentPage * itemsPerPage
     );
 
-    console.log(currentPageData);
+    
     
 
     // // Handle page change

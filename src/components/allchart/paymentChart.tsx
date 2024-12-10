@@ -1,4 +1,3 @@
-
 import React from "react";
 import dynamic from "next/dynamic";
 import { ApexOptions } from "apexcharts";
@@ -21,7 +20,7 @@ const PaymentChart: React.FC = () => {
       },
     },
     colors: [
-      ({dataPointIndex} :{dataPointIndex : number}) =>
+      ({ dataPointIndex }: { dataPointIndex: number }) =>
         dataPointIndex % 2 === 0 ? "#A75AE6" : "#999999", // Alternating colors
     ],
     dataLabels: {
@@ -96,14 +95,17 @@ const PaymentChart: React.FC = () => {
 
   const series = [
     {
-      name: "Inflation",
-      data: [2.3, 3.1, 4.0, 10.1, 4.0, 3.6, 3.2, 2.3, 1.4, 0.8, 0.5, 0.2],
+      name: "Revenue",
+      data: [30, 40, 35, 50, 49, 60, 70, 91, 125, 135, 150, 160],
     },
   ];
 
   return (
-    <div id="chart">
-      <ReactApexChart options={options} series={series} type="bar" height={350} />
+    <div className="w-full">
+      <div id="chart">
+        {/* Dynamically imported ReactApexChart component */}
+        <ReactApexChart options={options} series={series} type="bar" height={350} />
+      </div>
     </div>
   );
 };

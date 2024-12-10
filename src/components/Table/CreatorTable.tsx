@@ -35,7 +35,6 @@ const CreatorTable = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
 
     const users = creatorTable && creatorTable.filter((item)=> item.role == "creator")
-    console.log(users);
     
 
 
@@ -48,7 +47,6 @@ const CreatorTable = () => {
         currentPage * itemsPerPage
     );
 
-    console.log(currentPageData);
     
 
     // // Handle page change
