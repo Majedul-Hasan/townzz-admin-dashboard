@@ -1,6 +1,4 @@
-import { url } from "inspector";
 import baseApi from "./baseApi";
-import exp from "constants";
 
 const subscription = baseApi.injectEndpoints({
     endpoints: (build) => ({
@@ -32,7 +30,7 @@ const subscription = baseApi.injectEndpoints({
         }),
         getAllSubscription: build.query({
             query: () => ({
-                url: "",
+                url: "/subscription-plan/all",
                 method: "GET"
             })
         })

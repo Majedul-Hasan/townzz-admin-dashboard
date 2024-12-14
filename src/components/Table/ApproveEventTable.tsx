@@ -1,14 +1,22 @@
-'use client'
-import React, { useState } from 'react';
-// import { ConcertInterface } from '@/utils/InterFaces';
-import { motion } from "motion/react"
-import Image from 'next/image';
-import Loader from '../Loader/Loader';
 import { ConcertInterface } from '@/Interfaces/InterFaces';
+import React from 'react';
+import Loader from '../Loader/Loader';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+import { useApproveEventMutation } from '@/Redux/Api/eventApi';
+const ApproveEventTable = ({ approveEvent, isLoading, serial }: { approveEvent: ConcertInterface[], isLoading: boolean, serial: number }) => {
+    console.log(approveEvent);
+    const [updateStatus, { error }] = useApproveEventMutation()
 
-const ConcertTable = ({ concertTable, serial, isLoading }: { concertTable : ConcertInterface[], serial: number, isLoading: boolean }) => {
-console.log(concertTable);
+    const handleApprove = (id: string) => {
+        console.log(id);
+        const res = updateStatus({ event_status: "UPCOMING", id: id });
 
+    }
+
+    const handleCancel = (id: string) => {
+        const res = updateStatus({ event_status: "CANCELLED" })
+    }
 
     return (
         <div className="overflow-x-auto overflow-y-hidden">
@@ -22,7 +30,7 @@ console.log(concertTable);
                         <th className="px-4 py-2 border">Ticket Price</th>
                         <th className="px-4 py-2 border">Total Ticket</th>
                         <th className="px-4 py-2 border">Event Date</th>
-                        {/* <th className="px-4 py-2 border">Action</th> */}
+                        <th className="px-4 py-2 border">Action</th>
                         {/* <th className="px-4 py-2 border">Amount</th> */}
                         {/* <th className="px-4 py-2 border">Purchase Date</th> */}
                     </tr>
@@ -35,16 +43,19 @@ console.log(concertTable);
                             </td>
                         </tr>
                         :
-                        concertTable?.map((item: ConcertInterface, index: number) => (
+                        approveEvent?.map((item: ConcertInterface, index: number) => (
                             <motion.tr initial={{ y: 100 * (index + 1), opacity: 0 }} animate={{ y: 0, opacity: 1, transition: { duration: 0.5 } }} key={index} className="border-b text-center">
-                                <td className="px-4 text-nowrap py-2">{serial+ index + 1}</td>
+                                <td className="px-4 text-nowrap py-2">{serial + index + 1}</td>
                                 <td className="px-4 text-nowrap py-2"><Image src={item.photos[0]} alt={`${item.photos[0]}`} width={60} className='h-12 mx-auto object-cover' height={20}></Image></td>
                                 <td className="px-4 text-nowrap py-2">{item.title}</td>
                                 <td className="px-4 text-nowrap py-2">{item.locationName}</td>
                                 <td className="px-4 text-nowrap py-2">{item.price}</td>
                                 <td className="px-4 text-nowrap py-2">{item.totalTicket}</td>
                                 <td className="px-4 text-nowrap py-2">{item.startDate.split("T")[0]}</td>
-                                {/* <td className="px-4 py-2"><button className='px-4 py-1 rounded-lg bg-[#83008A] text-white'>Delete</button></td> */}
+                                <td className="px-2  flex gap-2 items-center mt-3 h-fit  justify-center">
+                                    <button onClick={() => handleCancel(item?.id)} className='px-4 py-1 rounded-lg bg-[#83008A] text-white'>Reject</button>
+                                    <button onClick={() => handleApprove(item?.id)} className='px-4 py-1 rounded-lg bg-[#83008A] text-white'>Approve</button>
+                                </td>
 
                                 {/* <td className="px-4 py-2">{item.createdAt.split("T")[0]}</td> */}
                             </motion.tr>
@@ -57,5 +68,4 @@ console.log(concertTable);
     );
 };
 
-export default ConcertTable;
-
+export default ApproveEventTable;

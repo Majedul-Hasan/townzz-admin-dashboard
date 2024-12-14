@@ -1,20 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit'
-import type { PayloadAction } from '@reduxjs/toolkit'
-
-
 // Define a type for the slice state
 interface CounterState {
     name: string,
     role: string,
-    token: string
 }
 
 // Define the initial state using that type
 const initialState: CounterState = {
     name: "",
     role: "",
-    token: ""
-
 }
 
 export const adminAuth = createSlice({
@@ -26,7 +20,7 @@ export const adminAuth = createSlice({
             state.name = action.payload.name
             state.role = action.payload.role
         },
-        logOut: (state, action) => {
+        logOut: (state) => {
             state.name = ""
             state.role = ""
         }

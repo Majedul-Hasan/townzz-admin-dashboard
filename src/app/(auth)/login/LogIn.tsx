@@ -2,28 +2,45 @@
 import React, { FormEvent, useState } from "react";
 import logo from "@/assests/logo.png";
 import Image from "next/image";
-import Link from "next/link";
 import { IoEyeSharp } from "react-icons/io5";
 import { FaEyeSlash } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
+// import { useLoginUserMutation } from "@/components/Redux/Api/userApi";
+import { useDispatch } from "react-redux";
+// import { AppDispatch } from "@/components/Redux/store";
+// import { setUser } from "@/components/Redux/ReduxFunction";
+import Cookies from "js-cookie"
+import { useLoginUserMutation } from "@/Redux/Api/userApi";
+import { AppDispatch } from "@/Redux/store";
+import { setUser } from "@/Redux/ReduxFunction";
 
 const LogIn = () => {
     const [checked, setChecked] = useState<boolean>(false);
     const [logIn, setLogIn] = useState<string>('Log in');
     const [showPassword, setShowPassword] = useState<boolean>(false);
+    const [loginFun, { error }] = useLoginUserMutation()
+    const dispatch = useDispatch<AppDispatch>()
     const route = useRouter()
 
-    const handleLogin = (e: FormEvent<HTMLFormElement>) => {
+    const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         // e.stopPropagation()
         const fromData = new FormData(e.currentTarget)
         setLogIn("loading ...")
         const email = fromData.get("email")
         const password = fromData.get("password")
+        const loginData = { email, password }
         console.log({ email, password });
-
-
-
+        const res = await loginFun(loginData)
+        console.log(res);
+        if (error) {
+            console.log(error);
+        }
+        if (res) {
+            dispatch(setUser({ name: res.data?.data?.name, role: res.data?.data?.role }))
+            Cookies.set("accessToken", res?.data?.data?.accessToken)
+            route.push("/")
+        }
     }
 
     const handleShowPassword = (e: React.MouseEvent<HTMLButtonElement>) => {

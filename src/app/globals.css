@@ -3,3 +3,10 @@
 @tailwind utilities;
 
 
+input {
+    color: black;
+}
+
+textarea {
+    color: black;
+}

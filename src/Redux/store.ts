@@ -1,9 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit'
-
-
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 import adminAuth from './ReduxFunction'
+import baseApi from './Api/baseApi'
 
 
 const persistConfig = {
@@ -15,17 +14,18 @@ const persistedReducer = persistReducer(persistConfig, adminAuth)
 
 export const store = configureStore({
     reducer: {
-        Auth: persistedReducer
+        Auth: persistedReducer,
+        [baseApi.reducerPath]: baseApi.reducer, // Add this line
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
             serializableCheck: {
-                // Ignore non-serializable values in actions or state
                 ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE'],
-                ignoredPaths: ['Auth.somePathWithNonSerializableValues'], // Update paths as needed
+                ignoredPaths: ['Auth.somePathWithNonSerializableValues'],
             },
-        }),
+        }).concat(baseApi.middleware),
 })
+
 
 export const persistor = persistStore(store)
 // Infer the `RootState` and `AppDispatch` types from the store itself

@@ -3,17 +3,17 @@ import baseApi from "./baseApi";
 const eventApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
         getAllEvents: build.query({
-            query: () => ({
-                url: "",
+            query: ({ page, limit, status }) => ({
+                url: `/event/all?page=${page}&limit=${limit}&status=${status ? status : ""}`,
                 method: "GET"
             }),
-            providesTags : ["approveEvent"]
+            providesTags: ["approveEvent"]
         }),
         approveEvent: build.mutation({
-            query: (data: any) => ({
-                url: "",
-                method: "PATCH",
-                body: data
+            query: ({id, event_status}) => ({
+                url: `event/update-status/${id}`,
+                method: "PUT",
+                body: {event_status}
             }),
             invalidatesTags: ["approveEvent"]
         })

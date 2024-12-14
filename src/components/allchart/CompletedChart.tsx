@@ -4,11 +4,9 @@ import dynamic from 'next/dynamic';
 
 // Dynamically import ReactApexChart with ssr: false
 const ReactApexChartNoSSR = dynamic(() => import('react-apexcharts'), { ssr: false });
-import { ApexOptions } from 'apexcharts'; // Import ApexOptions type
+import { ApexOptions } from 'apexcharts'; 
 
-const ApexChart: React.FC = () => {
-  // State for series
-  const [series] = useState<number[]>([70]);
+const CompletedChart = ({ totalEvent, completedEvent }: { totalEvent: number, completedEvent: number }) => {
 
   // Define options with the correct type
   const options: ApexOptions = {
@@ -31,11 +29,11 @@ const ApexChart: React.FC = () => {
     <div className="w-[200px]">
       <div id="chart">
         {/* Use dynamically imported ReactApexChart component */}
-        <ReactApexChartNoSSR options={options} series={series} type="radialBar" height={350} />
+        <ReactApexChartNoSSR options={options} series={[parseFloat(totalEvent && completedEvent ? ((completedEvent / totalEvent) * 100).toFixed(0) : "" )]} type="radialBar" height={350} />
       </div>
       <div id="html-dist"></div>
     </div>
   );
 };
 
-export default ApexChart;
+export default CompletedChart;
