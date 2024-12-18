@@ -4,7 +4,7 @@ import Cookies from "js-cookie"
 export const baseApi = createApi({
     reducerPath: 'baseApi', // The key for this API in the Redux store
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://192.168.11.253:5004/api/v1', // Replace with your API's base URL
+        baseUrl: 'https://test.priyahasan.cfd/api/v1', // Replace with your API's base URL
         prepareHeaders: (headers) => {
             const token = Cookies.get("accessToken") // Assuming token is stored in the auth slice
             if (token) {
