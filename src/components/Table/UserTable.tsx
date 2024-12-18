@@ -9,8 +9,9 @@ import loader from '@/assests/loader.json'
 import Loader from '../Loader/Loader';
 import { useUserStatusUpdateMutation } from '@/Redux/Api/userApi';
 import { UserInterFace } from '@/Interfaces/InterFaces';
+import ShowToastify from '@/utils/ShowToastify';
 
-const UserTable = ({ userData, isLoading, serial }: { userData: UserInterFace[], isLoading: boolean, serial : number }) => {
+const UserTable = ({ userData, isLoading, serial }: { userData: UserInterFace[], isLoading: boolean, serial: number }) => {
 
     const [updateStatus, { error }] = useUserStatusUpdateMutation()
 
@@ -19,7 +20,8 @@ const UserTable = ({ userData, isLoading, serial }: { userData: UserInterFace[],
         const res = await updateStatus({ id })
         console.log(res);
         if (error) {
-          console.log(error);
+            console.log(error);
+            return ShowToastify({ error: "Unsuccessful to block or active the user" })
         }
     }
 

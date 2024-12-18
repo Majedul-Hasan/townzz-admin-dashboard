@@ -9,10 +9,21 @@ export interface UserInterFace {
 
 export interface ConcertInterface {
     title: string
-    id : string
+    id: string
     locationName: string
     startDate: string
     price: number
     totalTicket: number
     photos: string[]
+}
+
+export interface ComplainInterface {
+    complainPhotos: string[]
+    ticketId: string
+    user: {
+        name: string
+        email: string
+    }
+    title: string
+    id: string
 }

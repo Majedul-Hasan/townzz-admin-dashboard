@@ -10,10 +10,13 @@ import { useGetAllSubscriptionQuery } from '@/Redux/Api/subscriptionApi';
 
 const Subscription = () => {
     const [modal, setModal] = useState(false);
+    const [id, setId] = useState<string>("");
     const { data, isLoading } = useGetAllSubscriptionQuery({})
-    console.log(data);
 
-
+    const handleUpdate = (e: string) => {
+        setModal(!modal)
+        setId(e)
+    }
 
 
     return (
@@ -21,7 +24,7 @@ const Subscription = () => {
             <h1 className='text-4xl text-primary text-center font-bold'>See your all subscription</h1>
 
             <hr className='border-primary border rounded-3xl my-10' />
-            <div className='flex justify-center gap-10'>
+            <div className='flex justify-start flex-wrap gap-10'>
                 {
                     isLoading ?
                         <Loader className={`w-96`}></Loader>
@@ -42,7 +45,7 @@ const Subscription = () => {
                                         </div>)
                                 }
                                 <div>
-                                    <button onClick={()=> setModal(!modal)} className={`bg-white font-semibold text-lg hover:scale-105 transition-transform rounded-2xl px-5 py-1 ${item?.title == "BRONZE" ? "text-[#263238]" : item?.title == "SILVER" ? "text-primary" : "text-secondary"}`}>Update</button>
+                                    <button onClick={() => handleUpdate(item.id)} className={`bg-white font-semibold text-lg hover:scale-105 transition-transform rounded-2xl px-5 py-1 ${item?.title == "BRONZE" ? "text-[#263238]" : item?.title == "SILVER" ? "text-primary" : "text-secondary"}`}>Update</button>
                                 </div>
 
                             </div>)
@@ -54,7 +57,7 @@ const Subscription = () => {
                     <div className='text-lg font-extrabold text-end mt-5 mr-5'>
                         <button onClick={() => setModal(!modal)}>X</button>
                     </div>
-                    <UpdateSubscription />
+                    <UpdateSubscription id={id} />
                 </div>
             </dialog>
 

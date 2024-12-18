@@ -4,18 +4,27 @@ import Loader from '../Loader/Loader';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useApproveEventMutation } from '@/Redux/Api/eventApi';
+import ShowToastify from '@/utils/ShowToastify';
+import { ToastContainer } from 'react-toastify';
 const ApproveEventTable = ({ approveEvent, isLoading, serial }: { approveEvent: ConcertInterface[], isLoading: boolean, serial: number }) => {
     console.log(approveEvent);
     const [updateStatus, { error }] = useApproveEventMutation()
 
-    const handleApprove = (id: string) => {
+    const handleApprove = async (id: string) => {
         console.log(id);
-        const res = updateStatus({ event_status: "UPCOMING", id: id });
-
+        const res = await updateStatus({ event_status: "UPCOMING", id: id });
+        if (error) {
+            return ShowToastify({ success: "Unsuccessful to approved the event" })
+        }
+        ShowToastify({ success: "Successfully approved the event" })
     }
 
-    const handleCancel = (id: string) => {
-        const res = updateStatus({ event_status: "CANCELLED" })
+    const handleCancel = async (id: string) => {
+        const res = await updateStatus({ event_status: "CANCELLED", id: id })
+        if (error) {
+            return ShowToastify({ success: "Unsuccessful to cancel the event" })
+        }
+        ShowToastify({ success: "Successfully cancel the event" })
     }
 
     return (
@@ -43,27 +52,33 @@ const ApproveEventTable = ({ approveEvent, isLoading, serial }: { approveEvent: 
                             </td>
                         </tr>
                         :
-                        approveEvent?.map((item: ConcertInterface, index: number) => (
-                            <motion.tr initial={{ y: 100 * (index + 1), opacity: 0 }} animate={{ y: 0, opacity: 1, transition: { duration: 0.5 } }} key={index} className="border-b text-center">
-                                <td className="px-4 text-nowrap py-2">{serial + index + 1}</td>
-                                <td className="px-4 text-nowrap py-2"><Image src={item.photos[0]} alt={`${item.photos[0]}`} width={60} className='h-12 mx-auto object-cover' height={20}></Image></td>
-                                <td className="px-4 text-nowrap py-2">{item.title}</td>
-                                <td className="px-4 text-nowrap py-2">{item.locationName}</td>
-                                <td className="px-4 text-nowrap py-2">{item.price}</td>
-                                <td className="px-4 text-nowrap py-2">{item.totalTicket}</td>
-                                <td className="px-4 text-nowrap py-2">{item.startDate.split("T")[0]}</td>
-                                <td className="px-2  flex gap-2 items-center mt-3 h-fit  justify-center">
-                                    <button onClick={() => handleCancel(item?.id)} className='px-4 py-1 rounded-lg bg-[#83008A] text-white'>Reject</button>
-                                    <button onClick={() => handleApprove(item?.id)} className='px-4 py-1 rounded-lg bg-[#83008A] text-white'>Approve</button>
-                                </td>
+                        approveEvent.length <= 0 ?
+                            <tr className=''>
+                                <td colSpan={8} className=' text-center font-semibold'>No events found for approve</td>
+                            </tr>
+                            :
+                            approveEvent?.map((item: ConcertInterface, index: number) => (
+                                <motion.tr initial={{ y: 100 * (index + 1), opacity: 0 }} animate={{ y: 0, opacity: 1, transition: { duration: 0.5 } }} key={index} className="border-b text-center">
+                                    <td className="px-4 text-nowrap py-2">{serial + index + 1}</td>
+                                    <td className="px-4 text-nowrap py-2"><Image src={item.photos[0]} alt={`${item.photos[0]}`} width={60} className='h-12 mx-auto object-cover' height={20}></Image></td>
+                                    <td className="px-4 text-nowrap py-2">{item.title}</td>
+                                    <td className="px-4 text-nowrap py-2">{item.locationName}</td>
+                                    <td className="px-4 text-nowrap py-2">{item.price}</td>
+                                    <td className="px-4 text-nowrap py-2">{item.totalTicket}</td>
+                                    <td className="px-4 text-nowrap py-2">{item.startDate.split("T")[0]}</td>
+                                    <td className="px-2  flex gap-2 items-center mt-3 h-fit  justify-center">
+                                        <button onClick={() => handleCancel(item?.id)} className='px-4 py-1 rounded-lg bg-[#83008A] text-white'>Reject</button>
+                                        <button onClick={() => handleApprove(item?.id)} className='px-4 py-1 rounded-lg bg-[#83008A] text-white'>Approve</button>
+                                    </td>
 
-                                {/* <td className="px-4 py-2">{item.createdAt.split("T")[0]}</td> */}
-                            </motion.tr>
-                        ))}
+                                    {/* <td className="px-4 py-2">{item.createdAt.split("T")[0]}</td> */}
+                                </motion.tr>
+                            ))
+                    }
                 </tbody>
             </table>
 
-
+            <ToastContainer />
         </div>
     );
 };

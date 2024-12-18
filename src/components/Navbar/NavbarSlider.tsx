@@ -16,9 +16,9 @@ import complain from '@/assests/complaint.png'
 import approve from '@/assests/approved.png'
 import { FaRegUser } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../Redux/store";
 import { logOut } from "@/Redux/ReduxFunction";
 import Cookies from "js-cookie";
+import { AppDispatch, RootState } from "@/Redux/store";
 // import { RootState } from "@reduxjs/toolkit/query";
 interface SidebarProps {
   isOpen: boolean;
@@ -66,7 +66,7 @@ const NavbarSlider = ({ isOpen, toggleSidebar }: SidebarProps) => {
   const route = useRouter()
 
   const handleLogOut = () => {
-    dispatch(logOut(""))
+    dispatch(logOut())
     Cookies.remove("accessToken")
     route.push("/login")
 

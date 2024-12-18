@@ -20,17 +20,28 @@ const subscription = baseApi.injectEndpoints({
             }
         }),
         updateSubscription: build.mutation({
-            query: (data: any) => {
+            query: ({ updateData: data, id }) => {
+                console.log(data);
+                
                 return {
-                    url: "",
-                    method: "PATCH",
+                    url: `/subscription-plan/${id}`,
+                    method: "PUT",
                     body: data
                 }
-            }
+            },
+            invalidatesTags: ["updateSubscription"]
+
         }),
         getAllSubscription: build.query({
             query: () => ({
                 url: "/subscription-plan/all",
+                method: "GET"
+            }),
+            providesTags: ["updateSubscription"]
+        }),
+        getSubscriptionById: build.query({
+            query: (id) => ({
+                url: `/subscription-plan/${id}`,
                 method: "GET"
             })
         })
@@ -38,4 +49,4 @@ const subscription = baseApi.injectEndpoints({
 })
 
 
-export const  {useCreateSubscriptionMutation, useDeleteSubscriptionMutation, useGetAllSubscriptionQuery, useUpdateSubscriptionMutation} = subscription
+export const { useCreateSubscriptionMutation, useDeleteSubscriptionMutation, useGetAllSubscriptionQuery, useUpdateSubscriptionMutation, useGetSubscriptionByIdQuery } = subscription

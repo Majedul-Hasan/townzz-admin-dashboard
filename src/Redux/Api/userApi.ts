@@ -14,15 +14,15 @@ const userApi = baseApi.injectEndpoints({
             invalidatesTags: ["logIn"]
         }),
         allUsers: build.query({
-            query: ({ page, limit }) => ({
-                url: `/user/normal-user-all?page=${page}&limit=${limit}`,
+            query: ({ page, limit, email }) => ({
+                url: `/user/normal-user-all?page=${page}&limit=${limit}&email=${email}`,
                 method: "GET"
             }),
             providesTags: ["allUsers"]
         }),
         allCreators: build.query({
-            query: ({ page, limit }) => ({
-                url: `/user/creator-user-all?page=${page}&limit=${limit}`,
+            query: ({ page, limit, email }) => ({
+                url: `/user/creator-user-all?page=${page}&limit=${limit}&email=${email}`,
                 method: "GET"
             }),
             providesTags: ["allCreators"]

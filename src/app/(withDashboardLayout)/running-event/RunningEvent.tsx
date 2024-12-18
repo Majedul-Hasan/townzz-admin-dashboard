@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 const RunningEvent = () => {
 
     const [page, setPage] = useState<number>(1);
-    const [limit, setLimit] = useState(3);
+    const [limit, setLimit] = useState(100);
     const { data: concertTable, isLoading } = useGetAllEventsQuery({ page, limit, status:"UPCOMING" })
     console.log(concertTable);
 
