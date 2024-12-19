@@ -13,12 +13,11 @@ import ShowToastify from '@/utils/ShowToastify';
 
 const UserTable = ({ userData, isLoading, serial }: { userData: UserInterFace[], isLoading: boolean, serial: number }) => {
 
-    const [updateStatus, { error }] = useUserStatusUpdateMutation()
+    const [updateStatus] = useUserStatusUpdateMutation()
 
     const handleStatus = async (id: string) => {
         console.log(id);
-        const res = await updateStatus({ id })
-        console.log(res);
+        const {error,data} = await updateStatus({ id })
         if (error) {
             console.log(error);
             return ShowToastify({ error: "Unsuccessful to block or active the user" })

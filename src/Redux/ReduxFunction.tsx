@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import Cookies from 'js-cookie'
 // Define a type for the slice state
 interface CounterState {
     name: string,
@@ -23,6 +24,8 @@ export const adminAuth = createSlice({
         logOut: (state) => {
             state.name = ""
             state.role = ""
+            Cookies.remove("accessToken")
+
         }
     },
 })

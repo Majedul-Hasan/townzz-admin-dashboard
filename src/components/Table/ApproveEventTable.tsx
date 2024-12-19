@@ -8,11 +8,11 @@ import ShowToastify from '@/utils/ShowToastify';
 import { ToastContainer } from 'react-toastify';
 const ApproveEventTable = ({ approveEvent, isLoading, serial }: { approveEvent: ConcertInterface[], isLoading: boolean, serial: number }) => {
     console.log(approveEvent);
-    const [updateStatus, { error }] = useApproveEventMutation()
+    const [updateStatus] = useApproveEventMutation()
 
     const handleApprove = async (id: string) => {
         console.log(id);
-        const res = await updateStatus({ event_status: "UPCOMING", id: id });
+        const {error, data} = await updateStatus({ event_status: "UPCOMING", id: id });
         if (error) {
             return ShowToastify({ success: "Unsuccessful to approved the event" })
         }
@@ -20,7 +20,7 @@ const ApproveEventTable = ({ approveEvent, isLoading, serial }: { approveEvent: 
     }
 
     const handleCancel = async (id: string) => {
-        const res = await updateStatus({ event_status: "CANCELLED", id: id })
+        const {error, data} = await updateStatus({ event_status: "CANCELLED", id: id })
         if (error) {
             return ShowToastify({ success: "Unsuccessful to cancel the event" })
         }

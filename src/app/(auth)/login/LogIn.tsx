@@ -12,13 +12,15 @@ import { useDispatch } from "react-redux";
 import Cookies from "js-cookie"
 import { useLoginUserMutation } from "@/Redux/Api/userApi";
 import { AppDispatch } from "@/Redux/store";
-import { setUser } from "@/Redux/ReduxFunction";
+import { logOut, setUser } from "@/Redux/ReduxFunction";
+import ShowToastify from "@/utils/ShowToastify";
+import { ToastContainer } from "react-toastify";
 
 const LogIn = () => {
     const [checked, setChecked] = useState<boolean>(false);
     const [logIn, setLogIn] = useState<string>('Log in');
     const [showPassword, setShowPassword] = useState<boolean>(false);
-    const [loginFun, { error }] = useLoginUserMutation()
+    const [loginFun] = useLoginUserMutation()
     const dispatch = useDispatch<AppDispatch>()
     const route = useRouter()
 
@@ -31,14 +33,23 @@ const LogIn = () => {
         const password = fromData.get("password")
         const loginData = { email, password }
         console.log({ email, password });
-        const res = await loginFun(loginData)
-        console.log(res);
+        const { data, error } = await loginFun(loginData)
+        // console.log(data);
         if (error) {
             console.log(error);
+            ShowToastify({ error: "Check your password or email address" })
+            setLogIn("Log in")
         }
-        if (res) {
-            dispatch(setUser({ name: res.data?.data?.name, role: res.data?.data?.role }))
-            Cookies.set("accessToken", res?.data?.data?.accessToken)
+        if (data) {
+            if (data?.data?.role != "ADMIN") {
+                ShowToastify({ error: "You are not authorize" })
+                setLogIn("Log in")
+                dispatch(logOut())
+                return
+
+            }
+            dispatch(setUser({ name: data?.data?.name, role: data?.data?.role }))
+            Cookies.set("accessToken", data?.data?.accessToken)
             route.push("/")
         }
     }
@@ -121,7 +132,7 @@ const LogIn = () => {
                 </form>
                 {/* Register Link */}
             </div>
-
+            <ToastContainer />
         </div>
     );
 };

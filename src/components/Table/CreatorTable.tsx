@@ -9,12 +9,11 @@ import { UserInterFace } from '@/Interfaces/InterFaces';
 
 const CreatorTable = ({ creatorData, isLoading, serial }: { creatorData: UserInterFace[], isLoading: boolean, serial: number }) => {
 
-    const [updateStatus, { error }] = useUserStatusUpdateMutation()
+    const [updateStatus] = useUserStatusUpdateMutation()
 
     const handleStatus = async (id: string) => {
         console.log({ id });
-        const res = await updateStatus({ id })
-        console.log(res);
+        const {error,data} = await updateStatus({ id })
         
         if (error) {
             console.log(error);

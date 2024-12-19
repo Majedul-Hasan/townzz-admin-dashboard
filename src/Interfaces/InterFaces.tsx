@@ -26,4 +26,5 @@ export interface ComplainInterface {
     }
     title: string
     id: string
+    status : string
 }

@@ -66,7 +66,7 @@ const Complains = () => {
                                         <p className=''><span className='font-semibold'>TicketId:</span> {items?.ticketId}</p>
                                         <p className=''><span className='font-semibold'>User Name:</span> {items?.user.name}</p>
                                         <p className=''><span className='font-semibold'>User Email:</span> {items?.user.email}</p>
-                                        <button onClick={() => handleAccept(items?.id)} className='bg-primary rounded-lg my-3 text-white font-semibold w-full px-5 py-2 '>Accept Complain</button>
+                                        <button onClick={() => handleAccept(items?.id)} className='bg-primary rounded-lg my-3 text-white font-semibold w-full px-5 py-2 '>{items?.status}</button>
                                     </div>)
                     }
                 </div>
