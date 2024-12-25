@@ -1,7 +1,9 @@
-
 import React, { useState } from 'react';
-import ReactApexChart from 'react-apexcharts';
+import dynamic from 'next/dynamic';
 import { ApexOptions } from 'apexcharts'; // Import the type for proper typing
+
+// Dynamically load ReactApexChart to prevent SSR issues
+const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 const ReviewChart: React.FC = () => {
   const [series] = useState<number[]>([90, 31, 10]); // Define series as an array of numbers
@@ -35,8 +37,8 @@ const ReviewChart: React.FC = () => {
         },
       },
     },
-    labels: ['Apples', 'Oranges', 'Bananas'], 
-    colors: ['#A75AE6', '#FF8C00', '#FF2E31']
+    labels: ['Apples', 'Oranges', 'Bananas'],
+    colors: ['#A75AE6', '#FF8C00', '#FF2E31'],
   };
 
   return (
