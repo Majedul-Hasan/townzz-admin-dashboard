@@ -2,6 +2,7 @@
 import Loader from '@/components/Loader/Loader';
 import { ComplainInterface } from '@/Interfaces/InterFaces';
 import { useUpdateComplainMutation, useUserComplainQuery } from '@/Redux/Api/complainApi';
+import ShowToastify from '@/utils/ShowToastify';
 import Image from 'next/image';
 import React, { useState } from 'react';
 
@@ -12,11 +13,9 @@ const Complains = () => {
     const [role, setRole] = useState("RESIDENT");
     const { data: complains, isLoading } = useUserComplainQuery({ lang, role });
     const [updateComplain, { error }] = useUpdateComplainMutation()
-    console.log(complains?.data);
     // const [currentImage, setCurrentImage] = useState();
 
     const handleButton = (index: number) => {
-        console.log(index);
         
         if (index != 0) {
             setActiveButton(index)
@@ -30,8 +29,10 @@ const Complains = () => {
     }
 
     const handleAccept = async (id: string) => {
-        const res = await updateComplain(id)
-        console.log(res);
+        const {data} = await updateComplain(id)
+        if (data) {
+            ShowToastify({success : "In progress the complain"})
+        }
 
     }
 

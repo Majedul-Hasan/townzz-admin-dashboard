@@ -32,11 +32,10 @@ const LogIn = () => {
         const email = fromData.get("email")
         const password = fromData.get("password")
         const loginData = { email, password }
-        console.log({ email, password });
+
         const { data, error } = await loginFun(loginData)
-        // console.log(data);
+
         if (error) {
-            console.log(error);
             ShowToastify({ error: "Check your password or email address" })
             setLogIn("Log in")
         }

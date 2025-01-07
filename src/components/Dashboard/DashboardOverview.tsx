@@ -14,7 +14,6 @@ export default function DashboardOverview() {
   const today = new Date().toISOString()
   const runningEvent = data?.data?.data?.filter((item: { startDate: Date | string }) => item?.startDate >= today);
   const completedEvent = data?.data?.data?.filter((item: { startDate: Date | string }) => item?.startDate <= today);
-  console.log(completedEvent);
 
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {

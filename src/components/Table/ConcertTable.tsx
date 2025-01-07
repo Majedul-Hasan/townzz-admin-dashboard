@@ -7,7 +7,6 @@ import Loader from '../Loader/Loader';
 import { ConcertInterface } from '@/Interfaces/InterFaces';
 
 const ConcertTable = ({ concertTable, serial, isLoading }: { concertTable : ConcertInterface[], serial: number, isLoading: boolean }) => {
-console.log(concertTable);
 
 
     return (

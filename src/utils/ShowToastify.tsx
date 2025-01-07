@@ -3,7 +3,6 @@ import { Bounce, toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const ShowToastify = ({ success, error }: { success?: string, error?: string }) => {
-    console.log(error);
 
     if (success) {
         toast.success(success, {

@@ -6,12 +6,10 @@ import React, { useState } from 'react';
 const RunningEvent = () => {
 
     const [page, setPage] = useState<number>(1);
-    const [limit, setLimit] = useState(100);
+    const [limit] = useState(100);
     const { data: concertTable, isLoading } = useGetAllEventsQuery({ page, limit, status:"UPCOMING" })
-    console.log(concertTable);
 
     const button = concertTable && [...Array(concertTable?.data?.meta?.totalPage).keys()];
-    console.log(button);
     return (
         <div className='p-10'>
             <h1 className='text-3xl font-semibold text-center mb-8'>Users Details</h1>

@@ -12,10 +12,10 @@ const Creator = () => {
     const { data: creatorData, isLoading } = useAllCreatorsQuery({ page, limit, email })
 
     const button = creatorData && [...Array(creatorData?.data?.meta?.totalPage).keys()];
-    console.log(button);
+
 
     const handleSearch = () => {
-        console.log(emailRef?.current?.value);
+
         if (emailRef?.current?.value) {
             setEmail(emailRef?.current?.value)
         }

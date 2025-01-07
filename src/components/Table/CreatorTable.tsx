@@ -6,17 +6,17 @@ import { motion } from 'framer-motion'
 import Loader from '../Loader/Loader';
 import { useUserStatusUpdateMutation } from '@/Redux/Api/userApi';
 import { UserInterFace } from '@/Interfaces/InterFaces';
+import ShowToastify from '@/utils/ShowToastify';
 
 const CreatorTable = ({ creatorData, isLoading, serial }: { creatorData: UserInterFace[], isLoading: boolean, serial: number }) => {
 
     const [updateStatus] = useUserStatusUpdateMutation()
 
     const handleStatus = async (id: string) => {
-        console.log({ id });
-        const {error,data} = await updateStatus({ id })
+        const {error} = await updateStatus({ id })
         
         if (error) {
-            console.log(error);
+            ShowToastify({error : "Unsuccessful to change creator status"})
         }
     }
 

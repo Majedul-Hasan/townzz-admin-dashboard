@@ -11,10 +11,8 @@ const Users = () => {
     const [email, setEmail] = useState<string>("");
     const { data: userData, isLoading } = useAllUsersQuery({ page, limit, email })
     const button = userData && [...Array(userData?.data?.meta?.totalPage).keys()];
-    console.log(button);
 
     const handleSearch = () => {
-        console.log(emailRef?.current?.value);
         if (emailRef?.current?.value) {
             setEmail(emailRef?.current?.value)
 

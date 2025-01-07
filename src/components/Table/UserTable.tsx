@@ -16,10 +16,10 @@ const UserTable = ({ userData, isLoading, serial }: { userData: UserInterFace[],
     const [updateStatus] = useUserStatusUpdateMutation()
 
     const handleStatus = async (id: string) => {
-        console.log(id);
-        const {error,data} = await updateStatus({ id })
+    
+        const {error} = await updateStatus({ id })
         if (error) {
-            console.log(error);
+      
             return ShowToastify({ error: "Unsuccessful to block or active the user" })
         }
     }

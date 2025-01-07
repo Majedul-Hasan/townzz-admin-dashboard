@@ -21,7 +21,6 @@ const subscription = baseApi.injectEndpoints({
         }),
         updateSubscription: build.mutation({
             query: ({ updateData: data, id }) => {
-                console.log(data);
                 
                 return {
                     url: `/subscription-plan/${id}`,

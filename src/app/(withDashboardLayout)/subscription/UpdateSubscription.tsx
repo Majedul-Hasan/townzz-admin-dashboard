@@ -8,7 +8,6 @@ const UpdateSubscription = ({ id }: { id: string }) => {
 
     const { data } = useGetSubscriptionByIdQuery(id)
     const [updateFn, {error}] = useUpdateSubscriptionMutation()
-    console.log(data);
 
 
     const handleUpdate = async(e: FormEvent<HTMLFormElement>) => {
@@ -17,9 +16,9 @@ const UpdateSubscription = ({ id }: { id: string }) => {
         const price = parseFloat(form.get('price') as string) as number;
         const description = [form.get('description') as string];
         const updateData = { price, description }
-        // console.log(updateData)
+
         const res = await updateFn({updateData, id})
-        // console.log(res);
+      
         
         if (error) {
          return   ShowToastify({error : "Unsuccessful to update the subscription"})

@@ -13,7 +13,6 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL(homeRoute, request.url));
   }
   const userInfo = jwtDecode(token as string)
-  // console.log(userInfo);
 
   const currentPath = request.nextUrl.pathname;
 

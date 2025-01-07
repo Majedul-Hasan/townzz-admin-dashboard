@@ -7,7 +7,6 @@ const ApproveEvent = () => {
     const [page, setPage] = useState<number>(1);
     const [limit, setLimit] = useState(100);
     const { data: approveEvent, isLoading } = useGetAllEventsQuery({ page, limit, status: 'PENDING' });
-    console.log(approveEvent);
 
 
     const button = approveEvent && [...Array(approveEvent?.data?.meta?.totalPage).keys()];
