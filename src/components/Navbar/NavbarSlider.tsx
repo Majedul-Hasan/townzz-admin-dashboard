@@ -104,7 +104,7 @@ const NavbarSlider = ({ isOpen, toggleSidebar }: SidebarProps) => {
           <div>
             <div className="flex px-8 space-x-2  text-lg">
               <FaRegUser className="text-2xl text-primary" />
-              <p className="font-semibold text-primary">Hello, {name}</p>
+              <p className="font-semibold text-primary lg:block hidden">Hello, {name}</p>
             </div>
             <button
               onClick={handleLogOut}
