@@ -6,7 +6,10 @@ import React, { useState } from 'react';
 const ApproveEvent = () => {
     const [page, setPage] = useState<number>(1);
     const [limit, setLimit] = useState(100);
-    const { data: approveEvent, isLoading } = useGetAllEventsQuery({ page, limit, status: 'PENDING' });
+    const { data: approveEvent, isLoading } = useGetAllEventsQuery({ page, limit, status: 'PENDING' }, {
+        pollingInterval: 30000,
+        skipPollingIfUnfocused: true,
+    });
 
 
     const button = approveEvent && [...Array(approveEvent?.data?.meta?.totalPage).keys()];
@@ -18,7 +21,7 @@ const ApproveEvent = () => {
                 <button className='bg-primary text-white py-1 px-5 text-lg font-semibold rounded-lg ml-2'>Search</button>
             </div> */}
             <div>
-                <ApproveEventTable approveEvent={approveEvent?.data?.data} isLoading ={isLoading} serial={(page * limit) - limit}></ApproveEventTable>
+                <ApproveEventTable approveEvent={approveEvent?.data?.data} isLoading={isLoading} serial={(page * limit) - limit}></ApproveEventTable>
             </div>
             <div className="flex justify-center gap-5 mt-5">
                 {
